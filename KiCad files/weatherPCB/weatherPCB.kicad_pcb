@@ -6743,7 +6743,6 @@
 			(net 4 "+3.3V")
 			(pinfunction "VDD")
 			(pintype "power_in")
-			(solder_mask_margin 0.102)
 			(uuid "5ab2289d-1edd-4983-817d-7c20d2790a56")
 		)
 		(pad "2" smd roundrect
@@ -6754,7 +6753,6 @@
 			(net 1 "GND")
 			(pinfunction "ADDR")
 			(pintype "input")
-			(solder_mask_margin 0.102)
 			(uuid "e7088f01-a08b-436c-a4ae-220358d5f0e4")
 		)
 		(pad "3" smd roundrect
@@ -6765,7 +6763,6 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "power_in")
-			(solder_mask_margin 0.102)
 			(uuid "60ec7ab1-912c-4b10-9c9b-f4f10265270a")
 		)
 		(pad "4" smd roundrect
@@ -6776,7 +6773,6 @@
 			(net 11 "SCL")
 			(pinfunction "SCL")
 			(pintype "input")
-			(solder_mask_margin 0.102)
 			(uuid "e20eb5dd-49e2-4db6-9710-2bf92ba2e1da")
 		)
 		(pad "5" smd roundrect
@@ -6787,7 +6783,6 @@
 			(net 45 "unconnected-(U1-INT-Pad5)")
 			(pinfunction "INT")
 			(pintype "output+no_connect")
-			(solder_mask_margin 0.102)
 			(uuid "df46972a-8f74-48d0-949f-b94250b5d5b6")
 		)
 		(pad "6" smd roundrect
@@ -6798,7 +6793,6 @@
 			(net 12 "SDA")
 			(pinfunction "SDA")
 			(pintype "bidirectional")
-			(solder_mask_margin 0.102)
 			(uuid "7e5f49f9-ba5c-4ad0-ae7a-c35e4bad7f10")
 		)
 		(pad "7" smd rect
@@ -6808,7 +6802,6 @@
 			(net 46 "unconnected-(U1-EXP-Pad7)")
 			(pinfunction "EXP")
 			(pintype "passive+no_connect")
-			(solder_mask_margin 0.102)
 			(uuid "9c462143-ad52-440f-bb46-c7fc2758844d")
 		)
 		(embedded_fonts no)
