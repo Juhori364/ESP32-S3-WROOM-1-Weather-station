@@ -3676,7 +3676,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Sensor:BME280"
+		(symbol "Sensor:BME680"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -3688,7 +3688,7 @@
 					)
 				)
 			)
-			(property "Value" "BME280"
+			(property "Value" "BME680"
 				(at 7.62 11.43 0)
 				(effects
 					(font
@@ -3696,8 +3696,8 @@
 					)
 				)
 			)
-			(property "Footprint" "Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering"
-				(at 38.1 -11.43 0)
+			(property "Footprint" "Package_LGA:Bosch_LGA-8_3x3mm_P0.8mm_ClockwisePinNumbering"
+				(at 36.83 -11.43 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -3705,7 +3705,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf"
+			(property "Datasheet" "https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME680-DS001.pdf"
 				(at 0 -5.08 0)
 				(effects
 					(font
@@ -3714,7 +3714,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8"
+			(property "Description" "4-in-1 sensor, gas, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8"
 				(at 0 0 0)
 				(effects
 					(font
@@ -3723,7 +3723,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "Bosch pressure humidity temperature environment environmental measurement digital"
+			(property "ki_keywords" "Bosch gas pressure humidity temperature environment environmental measurement digital"
 				(at 0 0 0)
 				(effects
 					(font
@@ -3732,7 +3732,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "*LGA*2.5x2.5mm*P0.65mm*Clockwise*"
+			(property "ki_fp_filters" "*LGA*3x3mm*P0.8mm*Clockwise*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -3741,7 +3741,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "BME280_0_1"
+			(symbol "BME680_0_1"
 				(rectangle
 					(start -10.16 10.16)
 					(end 10.16 -10.16)
@@ -3754,7 +3754,7 @@
 					)
 				)
 			)
-			(symbol "BME280_1_1"
+			(symbol "BME680_1_1"
 				(pin power_in line
 					(at -2.54 15.24 270)
 					(length 5.08)
@@ -11359,6 +11359,94 @@
 		)
 	)
 	(symbol
+		(lib_id "Sensor:BME680")
+		(at 57.15 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bde0f7f0-06f6-4b2d-9570-0646950e8168")
+		(property "Reference" "U2"
+			(at 45.72 165.0999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "BME680"
+			(at 45.72 167.6399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Package_LGA:Bosch_LGA-8_3x3mm_P0.8mm_ClockwisePinNumbering"
+			(at 93.98 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME680-DS001.pdf"
+			(at 57.15 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-in-1 sensor, gas, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8"
+			(at 57.15 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "2883b8d9-91ba-496e-9335-45735349b8c3")
+		)
+		(pin "1"
+			(uuid "ee4d410f-0836-445a-a6be-2185e7cf5c29")
+		)
+		(pin "8"
+			(uuid "8dea4136-9fb9-46ef-a4b4-1eccc63525ee")
+		)
+		(pin "2"
+			(uuid "a9febc83-baca-417f-8a65-3c70f18af16d")
+		)
+		(pin "5"
+			(uuid "9d5272e2-6b7e-47c0-a5a0-ffcca04b70a4")
+		)
+		(pin "3"
+			(uuid "7410bfac-d1b7-4d76-919d-6acee75a021b")
+		)
+		(pin "7"
+			(uuid "b2ef8ef1-a6e3-4aa4-8a49-7eac9a6cc063")
+		)
+		(pin "4"
+			(uuid "fbeb05fd-1383-4dee-a928-5abbe0b6e332")
+		)
+		(instances
+			(project ""
+				(path "/d2821ffd-b5a0-410f-bd0d-f94a66a717da"
+					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 125.73 149.86 0)
 		(unit 1)
@@ -12468,94 +12556,6 @@
 			(project "weatherPCB"
 				(path "/d2821ffd-b5a0-410f-bd0d-f94a66a717da"
 					(reference "#PWR074")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Sensor:BME280")
-		(at 57.15 166.37 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f2482782-33a8-4c61-b55c-e4deee165507")
-		(property "Reference" "U18"
-			(at 45.72 165.0999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "BME280"
-			(at 45.72 167.6399 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering"
-			(at 95.25 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf"
-			(at 57.15 171.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "3-in-1 sensor, humidity, pressure, temperature, I2C and SPI interface, 1.71-3.6V, LGA-8"
-			(at 57.15 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "7"
-			(uuid "ae3ec004-73bc-4aee-89f2-2f8daa3f09b8")
-		)
-		(pin "5"
-			(uuid "4e7d2342-1b8a-4358-8339-b8ebaf4d8f9e")
-		)
-		(pin "4"
-			(uuid "09ac4c80-adb6-4fcc-82e5-11a22481eaa5")
-		)
-		(pin "2"
-			(uuid "3df82da1-d1be-4c9d-89bf-bb9fadf7d691")
-		)
-		(pin "6"
-			(uuid "75816b7b-934f-4f94-9ee9-e617396a3bec")
-		)
-		(pin "8"
-			(uuid "bf3ca2bb-556d-405e-8ff8-04ce39f460d8")
-		)
-		(pin "1"
-			(uuid "e9b8396f-f15c-4240-96c7-8646e00bd953")
-		)
-		(pin "3"
-			(uuid "1885839f-3395-4cf6-b3c1-188bae280b56")
-		)
-		(instances
-			(project "weatherPCB"
-				(path "/d2821ffd-b5a0-410f-bd0d-f94a66a717da"
-					(reference "U18")
 					(unit 1)
 				)
 			)
