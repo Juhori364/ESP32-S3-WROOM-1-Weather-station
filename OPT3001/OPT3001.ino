@@ -1,62 +1,56 @@
 #include <Wire.h>
 #include <opt3001.h>
-#include "esp_sleep.h"
+
+#define SDA_PIN 9
+#define SCL_PIN 8
 
 // Create sensor object
 opt3001 sensor;
 
-// I2C address
+// I2C address (0x44, 0x45, 0x46, or 0x47)
 const uint8_t I2C_ADDRESS = 0x44;
 
-// Sleep time in microseconds (5 minutes = 5 * 60 * 1,000,000)
-#define SLEEP_TIME 300000000ULL  
-
 void setup() {
-
   Serial.begin(115200);
-  delay(100); // delay to allow Serial to initialize
-
-  Serial.println("\nESP32 woke up");
-
+  delay(200);
+  Serial.println("Käynnistyy...");
+  
   // Initialize I2C
-  Wire.begin(9, 8); // SDA = 9, SCL = 8
+  Wire.begin(SDA_PIN, SCL_PIN);
   
-  // Initialize the sensor
-  sensor.setup(Wire, I2C_ADDRESS);
-
-  if (sensor.detect() != 0) {
-    Serial.println("OPT3001 not found!");
-  } else {
-    Serial.println("OPT3001 detected");
+  // Setup the OPT3001 (I2C library, I2C address)
+  if (sensor.setup(Wire, I2C_ADDRESS) != 0) {
+    Serial.println("Sensoria ei löytynyt.");
+    return;
   }
-
-  // Set conversation time (100ms)
-  sensor.config_set(OPT3001_CONVERSION_TIME_100MS);
-
-  float lux;
-
-  // Trigger single-shot conversion
-  sensor.conversion_singleshot_trigger();
   
-  // Wait for conversion to completee
-  delay(100); 
+  // Detect the sensor
+  if (sensor.detect() != 0) {
+    Serial.println("OPT3001 not detected");
+    return;
+  }
+  
+  // Configure conversion time (100ms or 800ms)
+  sensor.config_set(OPT3001_CONVERSION_TIME_800MS);
+  
+  // Enable continuous conversion mode
+  sensor.conversion_continuous_enable();
+  
+  Serial.println("OPT3001 initialized");
+}
 
-    // Read the result
+void loop() {
+  delay(200);
+  float lux;
+  
+  // Read illuminance in lux
   if (sensor.lux_read(&lux) == 0) {
     Serial.print("Illuminance: ");
     Serial.print(lux);
     Serial.println(" lux");
   } else {
-    Serial.println("Luku epäonnistui");
+    Serial.println("Failed to read illuminance");
   }
-
-  // Configure timer wakeup
-  esp_sleep_enable_timer_wakeup(SLEEP_TIME);
-
-  // Enter deep sleep
-  esp_deep_sleep_start();
-}
-
-void loop() {
-  // Not used because ESP32 restarts after deep sleep
+  
+  delay(1000);
 }
