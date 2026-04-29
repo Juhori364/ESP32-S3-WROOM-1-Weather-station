@@ -1,7 +1,11 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME680.h>
 #include <opt3001.h>
+#include <Adafruit_SSD1306.h>
+#include <SPI.h>
 
 #define SDA_PIN 9
 #define SCL_PIN 8
@@ -10,6 +14,19 @@ Adafruit_BME680 bme;
 opt3001 sensor;
 
 const uint8_t I2C_ADDRESS = 0x44;
+
+//Määrittelyt näyttöä varten
+char buf[16];  //Bufferi näytölle
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET     -1
+#define SCREEN_ADDRESS 0x3C
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+//Määrittelyt Wifi yhteyttä varten
+const char* ssid = "TP-Link_BA04";
+const char* password = "10171752";
+const char* serverName = "http://192.168.0.100:3000/upload";
 
 //float delayTemp = 0.0;
 //float actualTemp = 0.0;
@@ -33,6 +50,12 @@ void setup() {
     while (1);
   }
 
+
+  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;); // Don't proceed, loop forever
+  }
+
   sensor.config_set(OPT3001_CONVERSION_TIME_800MS);
 
   sensor.conversion_continuous_enable();
@@ -44,6 +67,8 @@ void setup() {
   bme.setPressureOversampling(BME680_OS_4X);
   bme.setIIRFilterSize(BME680_FILTER_SIZE_3);
   //bme.setGasHeater(320, 150); // lämpötila, ms
+
+
 
   delay(2000);
 
@@ -83,6 +108,28 @@ void loop() {
   hum = bme.readHumidity();
   pres = bme.readPressure();
 
+
+  display.clearDisplay();
+
+  // Printataan näytölle lämpötila:
+  dtostrf(temp, 6, 2, buf); //Muutetaan float arvo muotoon char ja talletetaan bufferiin
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+  display.println(buf);
+
+  //Printataan näytölle kosteus
+  dtostrf(hum, 6, 2, buf);
+  display.setCursor(0, 10);
+  display.println(buf);
+
+  //Printataan näytölle ilmanpaine
+  dtostrf(pres/100, 6, 2, buf);
+  display.setCursor(0, 20);
+  display.println(buf);
+
+  display.display();
+
   Serial.print("RawTemp: ");
   Serial.print(rawTemp);
   Serial.println("°C");
@@ -107,9 +154,14 @@ void loop() {
     Serial.print(lux);
     Serial.println(" lux");
     luxSum += lux;
+
+    dtostrf(lux, 6, 2, buf);
+    display.setCursor(0, 30);
+    display.println(buf);
+    display.display();
   }
 
-  delay(2000);
+  delay(500);
 }
 
 Serial.println("ULOS LOOPISTA");
@@ -136,6 +188,44 @@ Serial.println(" hPa");
 Serial.print("Illuminance: ");
 Serial.print(sendLux);
 Serial.println(" lux");
+
+//Muodostetaan Wifi yhteys
+
+WiFi.begin(ssid, password);
+  Serial.println("Connecting");
+  while(WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to WiFi network with IP Address: ");
+  Serial.println(WiFi.localIP());
+
+
+if(WiFi.status()== WL_CONNECTED){
+      WiFiClient client;
+      HTTPClient http;
+    
+      http.begin(client, serverName);
+      
+      http.addHeader("Content-Type", "application/json");
+
+      String payload = "{\"temperature\":" + String(sendTemp) +
+                 ",\"humidity\":" + String(sendHum) +
+                 ",\"pressure\":" + String(sendPres) +
+                 ",\"illuminance\":" + String(sendLux) + "}";
+              
+      int httpResponseCode = http.POST(payload);
+     
+      Serial.print("HTTP Response code: ");
+      Serial.println(httpResponseCode);
+        
+      http.end();
+      WiFi.disconnect();
+    }
+    else {
+      Serial.println("WiFi Disconnected");
+    }
 
 
   /*if (!stabilized) {
